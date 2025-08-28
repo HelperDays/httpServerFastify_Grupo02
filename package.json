@@ -1,0 +1,30 @@
+{
+  "name": "httpserverfastify_grupo02",
+  "version": "1.0.0",
+  "description": "Segundo trabajo de Desarrollo Web",
+  "homepage": "https://github.com/HelperDays/httpServerFastify_Grupo02#readme",
+  "bugs": {
+    "url": "https://github.com/HelperDays/httpServerFastify_Grupo02/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HelperDays/httpServerFastify_Grupo02.git"
+  },
+  "license": "ISC",
+  "author": "Mauricio_Segovia_&_Alejandro_Hernandez",
+  "type": "module",
+  "main": "server.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"node --watch server.ts"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@fastify/swagger": "^9.5.1",
+    "@fastify/swagger-ui": "^5.2.3",
+    "fastify": "^5.5.0"
+  }
+}
