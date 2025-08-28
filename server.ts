@@ -1,5 +1,5 @@
 import Fastify from "fastify";
-import usuariosRoutes from "./src/routes/usuarios-routes.ts";
+import usuariosRoutes from "./src/routes/usuarios/usuarios-routes.ts";
 import rootRoutes from "./src/routes/root-routes.ts";
 import swagger from './src/routes/plugins/swagger.ts'
 import fastifySwagger from "@fastify/swagger";  
