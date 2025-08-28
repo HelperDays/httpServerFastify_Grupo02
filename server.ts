@@ -9,9 +9,10 @@ const fastify = Fastify({
 });
 
 // Registrar rutas
+fastify.register(swagger);
 fastify.register(rootRoutes);
 fastify.register(usuariosRoutes);
-fastify.register(swagger);
+
 
 //Iniciar la escucha
  try {
