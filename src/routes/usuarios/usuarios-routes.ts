@@ -1,4 +1,5 @@
-import type { FastifyInstance, FastifySchema } from "fastify";
+import type { FastifyInstance, FastifyPluginAsync, FastifySchema } from "fastify";
+import type { FastifyPluginAsyncTypebox } from "@fastify/type-provider-typebox";
 
 
 interface User {
@@ -7,13 +8,31 @@ interface User {
   isAdmin: boolean;
 }
 
+type UsuarioType = {
+  id_usuario: number;
+  nombre: string;
+  isAdmin: boolean;
+}
+
+const usuarioSchema = {
+  type: 'object',
+  properties: {
+    id_usuario: { type: 'number', minimum: 1 },
+    nombre: { type: 'string', minLength: 2 },
+    isAdmin: { type: 'boolean' }
+  },
+  required: ['id_usuario', 'nombre', 'isAdmin'],
+  additionalProperties: false
+};
+
 let users: User[] = [
   { id_usuario: 1, nombre: "Yoni", isAdmin: true },
   { id_usuario: 2, nombre: "Walker", isAdmin: false },
   { id_usuario: 3, nombre: "WhiteHorse", isAdmin: false }
 ];
 
-const usuarioSchema = {//validador response 
+/**
+ * const usuarioSchema = {//validador response 
     type: 'object',
     properties: {
         nombre: {type: 'string', minLength:2},
@@ -21,7 +40,7 @@ const usuarioSchema = {//validador response
     },
     required: ['nombre','isAdmin'],
     additionalProperties: false
-}
+}**/
 
 
 const usuarioPostSchema = {
@@ -37,7 +56,7 @@ const usuarioPostSchema = {
 
 
 
-async function usuariosRoutes(fastify: FastifyInstance) {
+const usuariosRoutes : FastifyPluginAsyncTypebox = async function (fastify) {
   // Obtener todos los usuarios
     fastify.get('/usuarios',{
     //si no ejecuta el validador o no cumple el validador, nunca va a llegar al handler
