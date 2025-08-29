@@ -16,11 +16,10 @@ let users: User[] = [
 const usuarioSchema = {//validador response 
     type: 'object',
     properties: {
-        id_usuario: {type: 'number', minimum:0},
         nombre: {type: 'string', minLength:2},
         isAdmin: {type: 'boolean'}
     },
-    required: ['id_usuario','nombre','isAdmin'],
+    required: ['nombre','isAdmin'],
     additionalProperties: false
 }
 
@@ -122,17 +121,24 @@ async function usuariosRoutes(fastify: FastifyInstance) {
       summary: 'Modificar un usuario',
       description: 'Poder modificar un usuario por su id',
       tags: ['PUT'],
-      params: {
+      params: { 
+        type: "object", 
+        properties: { 
+          id: { type: "integer", minimum: 1 } 
+        }, 
+        required: ["id"], 
+        additionalProperties: false 
+      },
+      body: {
         type: "object",
         properties: {
-          id: { type: "integer", minimum: 1 }
+          nombre: { type: "string", minLength: 2 }
         },
-        required: ["id"],
+        required: ["nombre"],
         additionalProperties: false
       },
-      body: usuarioPostSchema,
       response: {
-        200: usuarioSchema,
+        204: {type: 'null'},
         404: {
           type: "object",
           properties: {
@@ -146,8 +152,8 @@ async function usuariosRoutes(fastify: FastifyInstance) {
     const { nombre, isAdmin, id_usuario } = request.body as any;
     const userIndex = users.findIndex(u => u.id_usuario === Number(id));
     if (userIndex === -1) return reply.status(404).send({ error: "Usuario no encontrado" });
-    users[userIndex] = { id_usuario: Number(id), nombre, isAdmin };
-    return users[userIndex];
+    users[userIndex].nombre = nombre;
+    return reply.status(204).send();
   });
 
   // Eliminar un usuario
@@ -165,7 +171,7 @@ async function usuariosRoutes(fastify: FastifyInstance) {
         additionalProperties: false
       },
       response: {
-        200: usuarioSchema,
+        204: {type: 'null'},
         404: {
           type: "object",
           properties: {
@@ -178,8 +184,8 @@ async function usuariosRoutes(fastify: FastifyInstance) {
     const { id } = request.params;
     const userIndex = users.findIndex(u => u.id_usuario === Number(id));
     if (userIndex === -1) return reply.status(404).send({ error: "Usuario no encontrado" });
-    const deleted = users.splice(userIndex, 1)[0];
-    return deleted;
+    const deleted = users.splice(userIndex, 1);
+    return reply.status(204).send();
   });
 }
 
