@@ -29,7 +29,10 @@ export default fp<FastifySwaggerOptions>(async (fastify) => {
       ],
       tags: [
         { name: 'root', description: 'Root end points.' },
-        { name: 'examples', description: 'Examples end points.' },
+        { name: 'GET', description: 'GET end points.' },
+        { name: 'POST', description: 'POST end points.' },
+        { name: 'DELETE', description: 'DELETE end points.' },
+        //{ name: 'examples', description: 'Examples end points.' },
       ],
       components: {
         securitySchemes: {

@@ -15,7 +15,7 @@ fastify.register(usuariosRoutes);
 
 
 //Iniciar la escucha
- try {
+try {
     await fastify.listen({ host:"::",port: 3000 });
         console.log("Servidor escuchando en el puerto 3000");
     } catch (err) {
