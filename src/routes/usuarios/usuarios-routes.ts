@@ -115,7 +115,7 @@ async function usuariosRoutes(fastify: FastifyInstance) {
     reply.status(201);
     return newUser;
   });
-  
+
   // Modificar un usuario
     fastify.put<{ Params: { id: number }; Body: Omit<User, "id"> }>("/usuarios/:id", {
     schema: {
@@ -140,7 +140,7 @@ async function usuariosRoutes(fastify: FastifyInstance) {
           }
         }
       }
-    }
+    } as FastifySchema
   }, async (request, reply) => {
     const { id } = request.params;
     const { nombre, isAdmin, id_usuario } = request.body as any;
@@ -173,7 +173,7 @@ async function usuariosRoutes(fastify: FastifyInstance) {
           }
         }
       }
-    }
+    } as FastifySchema
   }, async (request, reply) => {
     const { id } = request.params;
     const userIndex = users.findIndex(u => u.id_usuario === Number(id));

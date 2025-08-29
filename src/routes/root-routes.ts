@@ -1,4 +1,4 @@
-import type { FastifyInstance } from "fastify";  
+import type { FastifyInstance, FastifySchema } from "fastify";  
 
 async function rootRoutes(fastify: FastifyInstance) {
   fastify.get("/", {
@@ -6,7 +6,7 @@ async function rootRoutes(fastify: FastifyInstance) {
       tags: ["root"],
       summary: "Ruta raíz",
       description: "Endpoint principal de la API"
-    }
+    } as FastifySchema
   }, async (request, reply) => {
     return { message: "API de usuarios funcionando" };
   });
